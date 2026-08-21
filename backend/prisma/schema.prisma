@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CUSTOMER
+  ORGANISER
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  events         Event[]
+  bookings       Booking[]
+  waitlistEntries Waitlist[]
+}
+
+model Venue {
+  id        String   @id @default(uuid())
+  name      String
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  layouts    VenueLayout[]
+  categories SeatCategory[]
+  seats      Seat[]
+  shows      Show[]
+}
+
+model VenueLayout {
+  id         String   @id @default(uuid())
+  venueId    String
+  layoutJson Json     // Stores grid structure (rows, cols, gaps)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  venue Venue @relation(fields: [venueId], references: [id])
+}
+
+model SeatCategory {
+  id         String   @id @default(uuid())
+  venueId    String
+  name       String
+  basePrice  Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  venue    Venue      @relation(fields: [venueId], references: [id])
+  seats    Seat[]
+  waitlist Waitlist[]
+}
+
+model Seat {
+  id         String   @id @default(uuid())
+  venueId    String
+  categoryId String
+  seatLabel  String   // e.g., "A1"
+  row        Int
+  col        Int
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  venue        Venue          @relation(fields: [venueId], references: [id])
+  category     SeatCategory   @relation(fields: [categoryId], references: [id])
+  seatStatuses SeatStatus[]
+  bookingSeats BookingSeat[]
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  organiserId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  organiser User   @relation(fields: [organiserId], references: [id])
+  shows     Show[]
+}
+
+model Show {
+  id        String   @id @default(uuid())
+  eventId   String
+  venueId   String
+  date      DateTime
+  time      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  event        Event        @relation(fields: [eventId], references: [id])
+  venue        Venue        @relation(fields: [venueId], references: [id])
+  seatStatuses SeatStatus[]
+  bookings     Booking[]
+  waitlist     Waitlist[]
+}
+
+enum SeatState {
+  AVAILABLE
+  HELD
+  BOOKED
+}
+
+model SeatStatus {
+  id              String    @id @default(uuid())
+  showId          String
+  seatId          String
+  status          SeatState @default(AVAILABLE)
+  heldBy          String?   // User ID
+  holdExpiresAt   DateTime?
+
+  show Show @relation(fields: [showId], references: [id])
+  seat Seat @relation(fields: [seatId], references: [id])
+
+  @@unique([showId, seatId])
+}
+
+enum BookingState {
+  CONFIRMED
+  CANCELLED
+}
+
+model Booking {
+  id               String       @id @default(uuid())
+  showId           String
+  userId           String
+  totalAmount      Float
+  status           BookingState @default(CONFIRMED)
+  bookingReference String       @unique
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  show  Show          @relation(fields: [showId], references: [id])
+  user  User          @relation(fields: [userId], references: [id])
+  seats BookingSeat[]
+}
+
+model BookingSeat {
+  id        String @id @default(uuid())
+  bookingId String
+  seatId    String
+
+  booking Booking @relation(fields: [bookingId], references: [id])
+  seat    Seat    @relation(fields: [seatId], references: [id])
+}
+
+enum WaitlistState {
+  WAITING
+  OFFERED
+  EXPIRED
+  BOOKED
+}
+
+model Waitlist {
+  id             String        @id @default(uuid())
+  showId         String
+  categoryId     String
+  customerId     String
+  position       Int           @default(autoincrement())
+  status         WaitlistState @default(WAITING)
+  joinedAt       DateTime      @default(now())
+  offerExpiresAt DateTime?
+  offerToken     String?       @unique
+
+  show     Show         @relation(fields: [showId], references: [id])
+  category SeatCategory @relation(fields: [categoryId], references: [id])
+  customer User         @relation(fields: [customerId], references: [id])
+}
