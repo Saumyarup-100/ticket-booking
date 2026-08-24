@@ -267,7 +267,7 @@ export default function ShowDetail() {
                 >
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: theme.hex }}></span>
                   <span>{cat.name}</span>
-                  <span className="font-mono text-[11px] opacity-90">${cat.basePrice.toFixed(2)}</span>
+                  <span className="font-mono text-[11px] opacity-90">₹{cat.basePrice.toFixed(2)}</span>
                   <span className="text-[10px] bg-white/10 px-1.5 py-0.2 rounded font-mono">
                     {availableCount} left
                   </span>
@@ -321,7 +321,7 @@ export default function ShowDetail() {
                         key={s.id}
                         onClick={() => handleSeatClick(s.seatId, s.status)}
                         disabled={isLoading || (s.status !== 'AVAILABLE' && !isMyHold)}
-                        title={`Seat ${s.seat.seatLabel} — ${s.seat.category.name} ($${s.seat.category.basePrice})`}
+                        title={`Seat ${s.seat.seatLabel} — ${s.seat.category.name} (₹${s.seat.category.basePrice})`}
                         className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold transition-all relative group
                           ${!isHighlighted && s.status === 'AVAILABLE' ? 'opacity-30' : ''}
                           ${isLoading ? 'bg-slate-700/50 cursor-wait animate-pulse' :
@@ -342,7 +342,7 @@ export default function ShowDetail() {
                         <span className="absolute -top-10 left-1/2 -translate-x-1/2 hidden group-hover:flex flex-col items-center z-30 px-2.5 py-1 bg-slate-900/95 text-[10px] text-slate-200 rounded-lg shadow-xl border border-white/15 whitespace-nowrap pointer-events-none">
                           <span className="font-bold text-white">Seat {s.seat.seatLabel}</span>
                           <span className="flex items-center gap-1 text-[9px]" style={{ color: catTheme.hex }}>
-                            ● {s.seat.category.name} · ${s.seat.category.basePrice}
+                            ● {s.seat.category.name} · ₹{s.seat.category.basePrice}
                           </span>
                         </span>
                       </button>
@@ -365,7 +365,7 @@ export default function ShowDetail() {
                   return (
                     <div key={cat.id} className="flex items-center gap-2">
                       <div className="w-3.5 h-3.5 rounded-lg border" style={{ backgroundColor: `${theme.hex}40`, borderColor: theme.hex }}></div>
-                      <span>{cat.name} (${cat.basePrice})</span>
+                      <span>{cat.name} (₹{cat.basePrice})</span>
                     </div>
                   );
                 })}
@@ -412,7 +412,7 @@ export default function ShowDetail() {
                         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: theme.hex }}></span>
                         <span>{cat.name}</span>
                       </span>
-                      <span className="font-mono font-bold text-indigo-300 text-sm">${cat.basePrice.toFixed(2)}</span>
+                      <span className="font-mono font-bold text-indigo-300 text-sm">₹{cat.basePrice.toFixed(2)}</span>
                     </div>
 
                     {availableCount === 0 ? (
@@ -461,7 +461,7 @@ export default function ShowDetail() {
                     <span className="font-medium text-slate-200">
                       Seat <strong className="text-white">{s.seat.seatLabel}</strong> <span className="text-slate-400">({s.seat.category.name})</span>
                     </span>
-                    <span className="font-mono text-indigo-300 font-bold">${s.seat.category.basePrice.toFixed(2)}</span>
+                    <span className="font-mono text-indigo-300 font-bold">₹{s.seat.category.basePrice.toFixed(2)}</span>
                   </li>
                 ))}
               </ul>
@@ -469,7 +469,7 @@ export default function ShowDetail() {
               {/* Total */}
               <div className="pt-2 border-t border-white/10 flex justify-between items-center">
                 <span className="text-xs text-slate-300">Total Price</span>
-                <span className="text-xl font-mono font-extrabold text-white">${cartTotal.toFixed(2)}</span>
+                <span className="text-xl font-mono font-extrabold text-white">₹{cartTotal.toFixed(2)}</span>
               </div>
 
               {/* Expiry Warning */}

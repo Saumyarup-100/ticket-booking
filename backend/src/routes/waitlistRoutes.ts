@@ -112,7 +112,7 @@ router.post('/offers/:token/confirm', authenticate, async (req: AuthRequest, res
           <h1>Booking Confirmed!</h1>
           <p><strong>Reference:</strong> ${result.newBooking.bookingReference}</p>
           <p><strong>Show:</strong> ${offer.show.event.name} at ${offer.show.venue.name}</p>
-          <p><strong>Total:</strong> $${result.newBooking.totalAmount.toFixed(2)}</p>
+          <p><strong>Total:</strong> ₹${result.newBooking.totalAmount.toFixed(2)}</p>
           <img src="cid:qrcode" alt="QR Code" />
         `,
         attachments: [{ filename: 'ticket-qr.png', content: qrBase64, encoding: 'base64', cid: 'qrcode' }]

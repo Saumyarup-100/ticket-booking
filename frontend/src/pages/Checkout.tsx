@@ -192,7 +192,7 @@ export default function Checkout() {
 
                       <div className="flex items-center gap-3">
                         <span className="font-mono text-sm font-bold text-indigo-300">
-                          ${h.seat.category.basePrice.toFixed(2)}
+                          ₹{h.seat.category.basePrice.toFixed(2)}
                         </span>
                         <button 
                           onClick={() => handleCancelHold(group.show.id, h.seatId)} 
@@ -211,7 +211,7 @@ export default function Checkout() {
               <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-sm text-slate-400">Total Amount:</span>
-                  <span className="text-3xl font-extrabold font-mono text-white">${group.total.toFixed(2)}</span>
+                  <span className="text-3xl font-extrabold font-mono text-white">₹{group.total.toFixed(2)}</span>
                 </div>
 
                 <div className="flex items-center gap-3 w-full sm:w-auto">

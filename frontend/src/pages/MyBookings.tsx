@@ -149,7 +149,7 @@ export default function MyBookings() {
 
                     {/* Total Price */}
                     <div className="text-sm text-slate-300">
-                      Total Paid: <strong className="text-white font-mono text-base">${booking.totalAmount.toFixed(2)}</strong>
+                      Total Paid: <strong className="text-white font-mono text-base">₹{booking.totalAmount.toFixed(2)}</strong>
                     </div>
                   </div>
 

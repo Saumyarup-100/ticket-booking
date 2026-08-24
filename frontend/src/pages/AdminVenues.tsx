@@ -480,7 +480,7 @@ export default function AdminVenues() {
                       >
                         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: theme.hex }}></span>
                         <span>{cat.name}</span>
-                        <span className="font-mono text-[11px] opacity-80">${cat.basePrice.toFixed(2)}</span>
+                        <span className="font-mono text-[11px] opacity-80">₹{cat.basePrice.toFixed(2)}</span>
                         {isActive && <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded font-mono">ACTIVE BRUSH</span>}
                       </button>
                     );
@@ -488,7 +488,7 @@ export default function AdminVenues() {
 
                   {selectedVenue.categories.length === 0 && (
                     <div className="text-xs text-amber-300 p-2 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                      No categories created yet. Add your first seat category below (e.g. VIP Front $100, Standard $45).
+                      No categories created yet. Add your first seat category below (e.g. VIP Front ₹100, Standard ₹45).
                     </div>
                   )}
                 </div>
@@ -507,7 +507,7 @@ export default function AdminVenues() {
                   />
                   <input 
                     className="glass-input px-3 py-1.5 rounded-xl text-xs w-28 font-mono" 
-                    placeholder="Price ($)" 
+                    placeholder="Price (₹)" 
                     type="number" 
                     step="0.01" 
                     value={catPrice} 
@@ -688,7 +688,7 @@ export default function AdminVenues() {
                   </span>
                   <span className="text-emerald-400 font-mono text-sm font-extrabold flex items-center gap-1">
                     <DollarSign className="w-4 h-4" />
-                    <span>Max Revenue: ${projectedFullRevenue.toFixed(2)}</span>
+                    <span>Max Revenue: ₹{projectedFullRevenue.toFixed(2)}</span>
                   </span>
                 </div>
 
@@ -701,15 +701,15 @@ export default function AdminVenues() {
                       <div key={cat.id} className="p-3.5 rounded-2xl bg-slate-900/50 border border-white/5 space-y-1.5">
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-slate-200 text-xs flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.hex }}></span>
+                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: theme.hex }}></span>
                             {cat.name}
                           </span>
-                          <span className="font-mono text-xs text-indigo-300 font-semibold">${cat.basePrice.toFixed(2)}</span>
+                          <span className="font-mono text-xs text-indigo-300 font-semibold">₹{cat.basePrice.toFixed(2)}</span>
                         </div>
 
                         <div className="flex items-baseline justify-between text-xs">
                           <span className="text-slate-400 font-mono">{cat.count} seats ({percent}%)</span>
-                          <span className="text-emerald-400 font-mono font-bold">${cat.revenue.toFixed(2)}</span>
+                          <span className="text-emerald-400 font-mono font-bold">₹{cat.revenue.toFixed(2)}</span>
                         </div>
 
                         {/* Progress visual */}

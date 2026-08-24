@@ -71,7 +71,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response): Promise<
           <p><strong>Reference:</strong> ${booking.bookingReference}</p>
           <p><strong>Show:</strong> ${booking.show.event.name} at ${booking.show.venue.name}</p>
           <p><strong>Date:</strong> ${new Date(booking.show.date).toLocaleDateString()} at ${booking.show.time}</p>
-          <p><strong>Total:</strong> $${booking.totalAmount.toFixed(2)}</p>
+          <p><strong>Total:</strong> ₹${booking.totalAmount.toFixed(2)}</p>
           <p>Present this QR code at the venue:</p>
           <img src="cid:qrcode" alt="QR Code" />
         `,

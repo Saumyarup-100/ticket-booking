@@ -42,7 +42,7 @@ function EventSummary({ eventId, token }: { eventId: string; token: string }) {
           <DollarSign className="w-3 h-3 text-emerald-400" /> Revenue
         </div>
         <div className="text-xl font-mono font-extrabold text-emerald-400">
-          ${summary.revenue.toFixed(2)}
+          ₹{summary.revenue.toFixed(2)}
         </div>
       </div>
 
