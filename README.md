@@ -133,10 +133,34 @@ npx tsx tests/concurrency.test.ts
 ```
 Expected output: exactly 1 success (200) and 9 conflicts (409).
 
-## API Reference
+## API Endpoints Overview
 
-See [`docs/api-docs.md`](docs/api-docs.md) for the full endpoint list.
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| **POST** | `/api/auth/register` | Register customer, organiser, or admin | No |
+| **POST** | `/api/auth/login` | Login and receive JWT token | No |
+| **GET** | `/api/events` | Browse events & filter by search/venue | No |
+| **GET** | `/api/events/:id` | Get event details and scheduled shows | No |
+| **POST** | `/api/events` | Create new event (Organiser/Admin) | Yes (Organiser/Admin) |
+| **POST** | `/api/events/:id/shows` | Schedule new show on a venue | Yes (Organiser/Admin) |
+| **GET** | `/api/organiser/events/:id/summary` | Analytics: revenue, tickets, bookings | Yes (Organiser/Admin) |
+| **GET** | `/api/venues` | List all venues | No |
+| **GET** | `/api/venues/:id` | Get venue geometry and seat layouts | No |
+| **POST** | `/api/venues` | Create venue | Yes (Admin) |
+| **POST** | `/api/venues/:id/seats` | Save hall seat layout & tier geometry | Yes (Admin) |
+| **GET** | `/api/shows/:id/seats` | Real-time seat map & hold statuses | No |
+| **POST** | `/api/shows/:id/seats/:seatId/hold` | Transactional seat hold with TTL | Yes (Customer) |
+| **DELETE** | `/api/shows/:id/seats/:seatId/hold` | Release held seat | Yes (Customer) |
+| **POST** | `/api/bookings` | Confirm held seats & send QR ticket | Yes (Customer) |
+| **GET** | `/api/bookings/me` | Customer booking history & tickets | Yes (Customer) |
+| **POST** | `/api/bookings/:id/cancel` | Cancel booking & trigger waitlist | Yes (Customer) |
+| **POST** | `/api/shows/:id/waitlist` | Join category-specific waitlist | Yes (Customer) |
+| **GET** | `/api/offers/:token` | Validate priority waitlist offer | No |
+| **POST** | `/api/offers/:token/confirm` | Claim waitlist seat & book ticket | Yes (Customer) |
+
+For complete payload schemas and responses, see [`docs/api-docs.md`](docs/api-docs.md).
 
 ## System Design
 
-See [`docs/system-design.md`](docs/system-design.md) for the architectural write-up.
+For the full architectural write-up covering concurrency locks, TTL sweeps, waitlist FIFO assignment, and real-time WebSockets, see [`docs/system-design.md`](docs/system-design.md).
+
