@@ -1,6 +1,16 @@
 # Ticket Booking System
 
-A real-time movie/concert ticket booking platform with seat maps, seat holds, waitlists, and QR-ticket email delivery.
+A real-time movie/concert ticket booking platform with liquid glass aesthetics, interactive drag-to-paint seat maps, transactional seat holds, automated category waitlists, and QR-ticket email delivery.
+
+## 🌐 Live Hosted Application (Deliverable 3)
+
+| Component | Platform | Live URL |
+|---|---|---|
+| **Frontend Web App** | **Vercel** | [https://ticket-booking-rosy.vercel.app](https://ticket-booking-rosy.vercel.app) |
+| **Backend API Server** | **Render** | [https://ticket-booking-lbz5.onrender.com](https://ticket-booking-lbz5.onrender.com) |
+| **Database** | **Aiven PostgreSQL** | Cloud Managed with SSL/TLS |
+| **Source Code Archive** | **Deliverable 1** | [`ticket-booking-system.zip`](ticket-booking-system.zip) |
+| **System Design Spec** | **Deliverable 4** | [`docs/system-design.md`](docs/system-design.md) |
 
 ## Tech Stack
 
